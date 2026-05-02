@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Text-only briefing variant. Takes physicianName, SOQL-resolves Contact + Department, delegates to GetClinicalBriefingAction. Returns a single briefingText String. CLT path is on hold — LWC bundle stays deployed but unused.</description>
+    <developerName>GetClinicalBriefingActionLWC</developerName>
+    <invocationTarget>GetClinicalBriefingActionLWC</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <localDeveloperName>GetClinicalBriefingActionLWC</localDeveloperName>
+    <masterLabel>Get Clinical Briefing (Card)</masterLabel>
+    <progressIndicatorMessage>Pulling clinical capabilities for visit prep</progressIndicatorMessage>
+</GenAiFunction>

@@ -1,0 +1,94 @@
+/* ---------- Header banner ---------- */
+.cb1-header {
+    background: linear-gradient(135deg, #eef2fb 0%, #dde6f6 100%);
+    border-bottom: 1px solid #c8d4ea;
+    border-radius: 0;
+}
+.cb1-physician-name {
+    font-weight: 700;
+    color: #181818;
+    font-size: 1.15rem;
+}
+.cb1-department {
+    color: #4a5568;
+    font-weight: 500;
+}
+.cb1-source-line {
+    color: #6b7280;
+    font-style: italic;
+    font-size: 0.78rem;
+}
+
+/* ---------- Intro ---------- */
+.cb1-intro {
+    color: #4a5568;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+/* ---------- Talking-point cards ---------- */
+.cb1-point-card {
+    border-radius: 8px;
+    border: 1px solid #e0e3eb;
+    background: #ffffff;
+    padding: 0.85rem;
+    margin-bottom: 0.75rem;
+    border-left-width: 4px;
+    box-shadow: 0 1px 2px rgba(24, 24, 24, 0.04);
+    transition: box-shadow 0.15s ease;
+}
+.cb1-point-card:hover {
+    box-shadow: 0 2px 6px rgba(24, 24, 24, 0.08);
+}
+
+.cb1-accent-blue   { border-left-color: #0070d2; }
+.cb1-accent-purple { border-left-color: #7e57c2; }
+.cb1-accent-teal   { border-left-color: #00857a; }
+.cb1-accent-orange { border-left-color: #d4731f; }
+.cb1-accent-pink   { border-left-color: #c95689; }
+
+/* ---------- Position bubble ---------- */
+.cb1-position-bubble {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f3f4f8 0%, #dfe4ee 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #1b2636;
+    border: 1px solid #cbd2dc;
+    margin-right: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* ---------- Title + body ---------- */
+.cb1-point-title {
+    font-weight: 600;
+    color: #181818;
+    font-size: 0.95rem;
+}
+.cb1-point-body {
+    color: #303030;
+    line-height: 1.5;
+    font-size: 0.88rem;
+}
+
+/* ---------- CTA footer ---------- */
+.cb1-cta {
+    background: #f6f9ff;
+    border-left: 4px solid #2e844a;
+    padding: 0.75rem 1rem;
+}
+.cb1-cta-text {
+    color: #1b2636;
+    font-weight: 500;
+}
+
+/* ---------- Fallback ---------- */
+.cb1-fallback-text {
+    white-space: pre-wrap;
+    line-height: 1.5;
+    color: #303030;
+}

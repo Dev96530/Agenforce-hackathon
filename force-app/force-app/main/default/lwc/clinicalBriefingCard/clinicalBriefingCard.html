@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Prepare for the Visit" icon-name="standard:knowledge_base">
+        <div class="slds-var-p-around_medium">
+
+            <template lwc:if={hasPhysicianName}>
+                <p class="slds-text-heading_small cb-physician-name">{physicianName}</p>
+            </template>
+
+            <template lwc:if={hasDepartment}>
+                <p class="slds-text-body_small slds-text-color_weak slds-var-m-bottom_medium">{department}</p>
+            </template>
+
+            <p class="cb-briefing-text slds-var-m-top_small">{briefingText}</p>
+
+        </div>
+    </lightning-card>
+</template>

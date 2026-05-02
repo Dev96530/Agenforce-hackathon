@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  UC1 NOTE (2026-04-19): This metadata file is a reference for future rebuild in
+  the Prompt Template Builder UI. Direct metadata-API deploy of GenAiPromptTemplate
+  on this org is fighting us ("provider for [input] merge fields" + "version
+  identifier invalid") — the canonical authoring path for Flex Prompt Templates
+  is the Builder UI, then retrieve. For UC1 MVP, the Log_Physician_Visit
+  subagent's own reasoning LLM extracts fields from the transcript and calls
+  the Apex action directly. Rebuild this template in the UI as Day-4 polish and
+  rewire the subagent to delegate extraction.
+-->
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Extracts structured visit fields from a rep&apos;s free-form transcript. Returns strict JSON: physician_name, clinic_name, facility_name, visit_type, visit_summary, sentiment. UC1 does NOT include action_items (that is UC2).</description>
+    <developerName>ExtractVisitFromTranscript</developerName>
+    <masterLabel>Extract Visit From Transcript</masterLabel>
+    <templateVersions>
+        <content>You are an expert at extracting structured information from pharma field-rep visit transcripts in India.
+
+Read the transcript below and extract these fields:
+- physician_name: the doctor&apos;s full name as spoken, including the &quot;Dr.&quot; prefix
+- clinic_name: the clinic, hospital, or practice name
+- facility_name: the OPD, department, ward, or unit within the clinic. If not mentioned, return null (JSON null, not the string &quot;null&quot;).
+- visit_type: one of exactly these four values — &quot;Referral Discussion&quot;, &quot;Brochure Drop&quot;, &quot;Courtesy&quot;, &quot;Event Invite&quot;. If uncertain, default to &quot;Referral Discussion&quot;.
+- visit_summary: a 1–3 sentence neutral, factual summary of what was discussed
+- sentiment: one of exactly — &quot;positive&quot;, &quot;neutral&quot;, &quot;negative&quot;
+
+Return ONLY a single JSON object on one line. No code fences. No prose. No explanation. The JSON must be parseable as-is.
+
+Example 1 (input): &quot;Caught up with Dr. Arjun Rao at Apollo Hospital’s Radiation Oncology today — quick brochure drop, nothing major, he was polite but busy.&quot;
+Example 1 (output): {&quot;physician_name&quot;:&quot;Dr. Arjun Rao&quot;,&quot;clinic_name&quot;:&quot;Apollo Hospital&quot;,&quot;facility_name&quot;:&quot;Radiation Oncology&quot;,&quot;visit_type&quot;:&quot;Brochure Drop&quot;,&quot;visit_summary&quot;:&quot;Dropped off the latest brochure. No substantive clinical discussion.&quot;,&quot;sentiment&quot;:&quot;neutral&quot;}
+
+Example 2 (input): &quot;Met Dr. Neha Kulkarni at Tata Memorial — she’s keen on our new CAR-T program and wants to refer a couple of patients. Really engaged conversation.&quot;
+Example 2 (output): {&quot;physician_name&quot;:&quot;Dr. Neha Kulkarni&quot;,&quot;clinic_name&quot;:&quot;Tata Memorial&quot;,&quot;facility_name&quot;:null,&quot;visit_type&quot;:&quot;Referral Discussion&quot;,&quot;visit_summary&quot;:&quot;Discussed interest in the CAR-T program and potential patient referrals.&quot;,&quot;sentiment&quot;:&quot;positive&quot;}
+
+Transcript:
+{!$Input.Transcript}</content>
+        <inputs>
+            <apiName>Transcript</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Transcript</masterLabel>
+            <referenceName>Transcript</referenceName>
+            <required>true</required>
+        </inputs>
+        <status>Published</status>
+        <versionIdentifier>V1.0</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

@@ -1,0 +1,14 @@
+{
+  "required" : [ "messagingSessionIds" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "messagingSessionIds" : {
+      "title" : "messagingSessionIds",
+      "description" : "The current messaging session Id, bound from Messaging Session ID",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

@@ -1,0 +1,5 @@
+{
+  "title": "Clinical Briefing Card",
+  "description": "ADL-grounded clinical briefing — structured talking points for visit prep.",
+  "lightning:type": "@apexClassType/c__GetClinicalBriefingActionLWC$ClinicalBriefingCard"
+}

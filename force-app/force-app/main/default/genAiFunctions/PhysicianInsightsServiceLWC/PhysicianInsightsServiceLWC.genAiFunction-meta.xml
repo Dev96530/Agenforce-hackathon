@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Returns a rich Lightning card with the physician&apos;s relationship insights — profile, KPIs, sentiment trend, referral chain, ROI, and next-best-action which doubles as a clinical-briefing offer when Department is populated.</description>
+    <developerName>PhysicianInsightsServiceLWC</developerName>
+    <invocationTarget>PhysicianInsightsServiceLWC</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <localDeveloperName>PhysicianInsightsServiceLWC</localDeveloperName>
+    <masterLabel>Get Physician Insights (Card)</masterLabel>
+    <progressIndicatorMessage>Pulling physician history</progressIndicatorMessage>
+</GenAiFunction>

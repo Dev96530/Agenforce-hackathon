@@ -1,0 +1,15 @@
+{
+    "unevaluatedProperties": false,
+    "properties": {
+        "insights": {
+            "title": "insights",
+            "description": "Rich physician insights card — already formatted as a Lightning card. Render verbatim, do not paraphrase.",
+            "lightning:type": "c__physicianInsightsCard",
+            "lightning:isPII": false,
+            "copilotAction:isDisplayable": true,
+            "copilotAction:isUsedByPlanner": true,
+            "copilotAction:useHydratedPrompt": false
+        }
+    },
+    "lightning:type": "lightning__objectType"
+}

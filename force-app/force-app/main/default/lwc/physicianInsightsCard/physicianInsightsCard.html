@@ -1,0 +1,146 @@
+<template>
+    <article class="pic-card">
+
+        <template lwc:if={physicianFound}>
+
+            <!-- Section 1: Header -->
+            <header class="pic-section pic-header">
+                <div class="pic-avatar">
+                    <span>{avatarInitials}</span>
+                </div>
+                <div class="pic-header-text">
+                    <div class="pic-name-row">
+                        <h2 class="pic-name">{physicianFullName}</h2>
+                        <template lwc:if={hasStaleBadge}>
+                            <span class="pic-stale-badge">{staleBadgeText}</span>
+                        </template>
+                    </div>
+                    <template lwc:if={hasSubtitleV2}>
+                        <p class="pic-subtitle">{headerSubtitle}</p>
+                    </template>
+                </div>
+            </header>
+
+            <!-- Section 2: Metric grid (2x2) -->
+            <div class="pic-section pic-metrics">
+
+                <div class="pic-tile">
+                    <p class="pic-tile-label">ROI · This quarter</p>
+                    <div class="pic-tile-row">
+                        <span class="pic-tile-num pic-tile-roi">{roiFormatted}</span>
+                        <template lwc:if={hasArrivedCaption}>
+                            <span class="pic-tile-caption">{arrivedCountCaption}</span>
+                        </template>
+                    </div>
+                    <p class="pic-tile-source">via HIS · your visits</p>
+                </div>
+
+                <div class="pic-tile">
+                    <p class="pic-tile-label">Days since visit</p>
+                    <div class="pic-tile-row">
+                        <span class={daysSinceClass}>{daysSinceLastVisit}</span>
+                        <template lwc:if={hasLastVisitCaption}>
+                            <span class="pic-tile-caption">{lastVisitCaption}</span>
+                        </template>
+                    </div>
+                    <p class="pic-tile-source">via Visit Recency CI</p>
+                </div>
+
+                <div class="pic-tile">
+                    <p class="pic-tile-label">Visits</p>
+                    <div class="pic-tile-row">
+                        <span class="pic-tile-num">{visitCountThisYear}</span>
+                        <span class="pic-tile-caption">this year</span>
+                    </div>
+                    <p class="pic-tile-source">via Salesforce</p>
+                </div>
+
+                <div class="pic-tile">
+                    <p class="pic-tile-label">Open tasks</p>
+                    <div class="pic-tile-row">
+                        <span class="pic-tile-num">{openTaskCount}</span>
+                    </div>
+                    <p class="pic-tile-source">via Salesforce</p>
+                </div>
+
+            </div>
+
+            <!-- Section 3: Sentiment row -->
+            <template lwc:if={hasSentimentTrend}>
+                <div class="pic-section pic-sentiment">
+                    <p class="pic-section-label">Sentiment · Last 3 visits</p>
+                    <div class="pic-sentiment-row">
+                        <div class="pic-dots">
+                            <template for:each={sentimentDotsSimple} for:item="dot">
+                                <span key={dot.key} class={dot.cssClass}></span>
+                            </template>
+                        </div>
+                        <span class="pic-sentiment-label">{sentimentLabelLine}</span>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Section 4: Referral chain -->
+            <template lwc:if={showReferralRow}>
+                <div class="pic-section pic-referral">
+                    <p class="pic-section-label">Referral chain · This year</p>
+                    <div class="pic-referral-row">
+                        <div class="pic-pill pic-pill-sent">
+                            <span class="pic-pill-num">{referralsThisYear}</span>
+                            <span class="pic-pill-label">Sent</span>
+                        </div>
+                        <svg class="pic-arrow" viewBox="0 0 14 14" aria-hidden="true">
+                            <path d="M3 3 L9 7 L3 11" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+                        </svg>
+                        <div class="pic-pill pic-pill-converted">
+                            <span class="pic-pill-num">{referralsConvertedToAppointments}</span>
+                            <span class="pic-pill-label">Converted</span>
+                        </div>
+                        <svg class="pic-arrow" viewBox="0 0 14 14" aria-hidden="true">
+                            <path d="M3 3 L9 7 L3 11" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+                        </svg>
+                        <div class="pic-pill pic-pill-arrived">
+                            <span class="pic-pill-num">{appointmentsArrived}</span>
+                            <span class="pic-pill-label">Arrived</span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Section 5: Last visit -->
+            <template lwc:if={showLastVisit}>
+                <div class="pic-section pic-last-visit">
+                    <p class="pic-section-label">{lastVisitDaysLabel}</p>
+                    <template lwc:if={hasLastVisitBody}>
+                        <p class="pic-last-visit-body">{lastVisitBody}</p>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Section 6: Suggested next step (focal point) -->
+            <div class="pic-section pic-suggested">
+                <div class="pic-suggested-block">
+                    <div class="pic-suggested-head">
+                        <svg class="pic-check" viewBox="0 0 14 14" aria-hidden="true">
+                            <path d="M2 7 L6 11 L12 3" stroke="#185FA5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+                        </svg>
+                        <span class="pic-suggested-label">Suggested next step</span>
+                    </div>
+                    <p class="pic-suggested-action">{suggestedActionText}</p>
+                </div>
+            </div>
+
+        </template>
+
+        <template lwc:else>
+            <!-- Physician not found fallback -->
+            <div class="pic-not-found">
+                <p class="pic-not-found-headline">Couldn't find a matching physician.</p>
+                <template lwc:if={hasSuggestedNextAction}>
+                    <p class="pic-not-found-hint">{suggestedNextAction}</p>
+                </template>
+            </div>
+        </template>
+
+    </article>
+</template>

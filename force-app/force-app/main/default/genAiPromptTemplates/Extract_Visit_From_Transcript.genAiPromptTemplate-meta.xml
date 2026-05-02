@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>bLMK7M2sYkKEUiFFvlUjVIQe2Vpi2654ZMn3EZ8hRH4=_2</activeVersionIdentifier>
+    <description>Extracts structured visit fields + action_items[] from a rep&apos;s visit transcript. Uses CurrentDate to resolve relative date phrases to YYYY-MM-DD.</description>
+    <developerName>Extract_Visit_From_Transcript</developerName>
+    <masterLabel>Extract Visit From Transcript</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are an expert at extracting structured information from pharma field-rep visit transcripts in India.
+
+Today&apos;s date is: {!$Input:CurrentDate}
+
+Read the transcript below and extract these fields:
+- physician_name: the doctor&apos;s full name as spoken, including the &quot;Dr.&quot; prefix
+- clinic_name: the clinic, hospital, or practice name
+- facility_name: the OPD, department, ward, or unit within the clinic. If not mentioned, return null (JSON null, not the string &quot;null&quot;).
+- visit_type: one of exactly these four values — &quot;Referral Discussion&quot;, &quot;Brochure Drop&quot;, &quot;Courtesy&quot;, &quot;Event Invite&quot;. Default to &quot;Referral Discussion&quot; when uncertain.
+- visit_summary: a 1–3 sentence neutral, factual summary of what was discussed
+- sentiment: one of exactly — &quot;positive&quot;, &quot;neutral&quot;, &quot;negative&quot;
+- action_items: JSON array of follow-up actions extracted from the transcript. Each item is {&quot;description&quot;: string, &quot;due_date&quot;: &quot;YYYY-MM-DD&quot; or null}. ALWAYS return an array — empty [] when no follow-ups are mentioned. Use CurrentDate to resolve relative phrases (&quot;tomorrow&quot;, &quot;next Tuesday&quot;, &quot;Nov 15&quot;, &quot;in 3 days&quot;) into strict YYYY-MM-DD. If no due date is mentioned for an action item, return null for due_date.
+
+Return ONLY a single JSON object on one line. No code fences. No prose. No explanation. The JSON must be parseable as-is.
+
+Example 1 (input): &quot;Caught up with Dr. Arjun Rao at Apollo Hospital&apos;s Radiation Oncology today — quick brochure drop, nothing major, he was polite but busy.&quot;
+Example 1 (output): {&quot;physician_name&quot;:&quot;Dr. Arjun Rao&quot;,&quot;clinic_name&quot;:&quot;Apollo Hospital&quot;,&quot;facility_name&quot;:&quot;Radiation Oncology&quot;,&quot;visit_type&quot;:&quot;Brochure Drop&quot;,&quot;visit_summary&quot;:&quot;Dropped off the latest brochure. No substantive clinical discussion.&quot;,&quot;sentiment&quot;:&quot;neutral&quot;,&quot;action_items&quot;:[]}
+
+Example 2 (input, with CurrentDate 2026-04-19): &quot;Met Dr. Neha Kulkarni at Tata Memorial — she&apos;s keen on our new CAR-T program. I should send her the protocol summary next Tuesday and invite her to the Nov 15 tumor board.&quot;
+Example 2 (output): {&quot;physician_name&quot;:&quot;Dr. Neha Kulkarni&quot;,&quot;clinic_name&quot;:&quot;Tata Memorial&quot;,&quot;facility_name&quot;:null,&quot;visit_type&quot;:&quot;Referral Discussion&quot;,&quot;visit_summary&quot;:&quot;Discussed interest in the CAR-T program and potential referrals.&quot;,&quot;sentiment&quot;:&quot;positive&quot;,&quot;action_items&quot;:[{&quot;description&quot;:&quot;Send CAR-T protocol summary to Dr. Neha Kulkarni&quot;,&quot;due_date&quot;:&quot;2026-04-21&quot;},{&quot;description&quot;:&quot;Invite Dr. Neha Kulkarni to pediatric oncology tumor board&quot;,&quot;due_date&quot;:&quot;2026-11-15&quot;}]}
+
+Example 3 (input, with CurrentDate 2026-04-19): &quot;Dropped off brochure with Dr. Singh at Max. She asked me to come back in 3 days with the clinical trial info.&quot;
+Example 3 (output): {&quot;physician_name&quot;:&quot;Dr. Singh&quot;,&quot;clinic_name&quot;:&quot;Max&quot;,&quot;facility_name&quot;:null,&quot;visit_type&quot;:&quot;Brochure Drop&quot;,&quot;visit_summary&quot;:&quot;Left brochure. Dr. Singh requested clinical trial info follow-up.&quot;,&quot;sentiment&quot;:&quot;neutral&quot;,&quot;action_items&quot;:[{&quot;description&quot;:&quot;Return to Dr. Singh at Max with clinical trial info&quot;,&quot;due_date&quot;:&quot;2026-04-22&quot;}]}
+
+Transcript:
+{!$Input:Transcript}
+</content>
+        <inputs>
+            <apiName>Transcript</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Transcript</masterLabel>
+            <referenceName>Input:Transcript</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>CurrentDate</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>CurrentDate</masterLabel>
+            <referenceName>Input:CurrentDate</referenceName>
+            <required>false</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude46Sonnet</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>bLMK7M2sYkKEUiFFvlUjVIQe2Vpi2654ZMn3EZ8hRH4=_2</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

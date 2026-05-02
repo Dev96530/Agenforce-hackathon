@@ -1,0 +1,136 @@
+<template>
+    <lightning-card title="Rep Home Hub" icon-name="standard:service_appointment">
+        <template if:true={error}>
+            <div class="slds-text-color_error slds-p-around_medium">{error}</div>
+        </template>
+
+        <template if:true={hasData}>
+            <div class="hub-wrap slds-p-around_small">
+                <div class="kpi-grid">
+                    <div class="kpi-tile">
+                        <div class="kpi-label">Visits Today</div>
+                        <div class="kpi-value">{kpi.visitsToday}</div>
+                    </div>
+                    <div class="kpi-tile">
+                        <div class="kpi-label">Tasks Due</div>
+                        <div class="kpi-value">{kpi.tasksDueToday}</div>
+                    </div>
+                    <div class="kpi-tile">
+                        <div class="kpi-label">Overdue</div>
+                        <div class="kpi-value overdue">{kpi.overdueTasks}</div>
+                    </div>
+                    <div class="kpi-tile">
+                        <div class="kpi-label">Expense Week</div>
+                        <div class="kpi-value">{totalExpensesWeekLabel}</div>
+                    </div>
+                </div>
+
+                  
+
+                <div class="section">
+                    <h3 class="section-title">Action Queue</h3>
+                    <template if:true={hasAlerts}>
+                        <template for:each={alerts} for:item="a">
+                            <div key={a.detail} class="alert-row">
+                                <div class="alert-main">
+                                    <div class="alert-title">{a.title}</div>
+                                    <div class="alert-detail">{a.detail}</div>
+                                </div>
+                                <lightning-button
+                                    size="small"
+                                    label={a.ctaLabel}
+                                    data-id={a.targetId}
+                                    data-action={a.ctaAction}
+                                    onclick={handleAlertAction}
+                                    disabled={busy}>
+                                </lightning-button>
+                            </div>
+                        </template>
+                    </template>
+                    <template if:false={hasAlerts}>
+                        <div class="empty-text">No urgent alerts right now.</div>
+                    </template>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Recent Expenses</h3>
+                    <template for:each={expenses.recent} for:item="e">
+                        <div key={e.id} class="expense-row">
+                            <div class="expense-main">
+                                <button class="record-link" data-id={e.id} data-object="Expense" onclick={handleOpenRecord}>{e.title}</button>
+                                <div class="expense-sub">{e.transactionDate} · {e.physicianFullName}</div>
+                            </div>
+                            <template if:false={e.linkedToVisit}>
+                                <lightning-button variant="brand-outline" size="small" label="Link" data-id={e.id} onclick={handleLinkToLatestVisit} disabled={busy}></lightning-button>
+                            </template>
+                        </div>
+                    </template>
+                    <div class="expense-footer">Unlinked this month: {expenses.unlinkedCount}</div>
+                </div>
+
+                <!--<div class="section">
+                    <h3 class="section-title">Tasks</h3>
+                    <div class="task-badges">
+                        <lightning-badge label={overdueCount}></lightning-badge>
+                        <span class="badge-label">Overdue</span>
+                        <lightning-badge label={todayCount}></lightning-badge>
+                        <span class="badge-label">Today</span>
+                        <lightning-badge label={upcomingCount}></lightning-badge>
+                        <span class="badge-label">Upcoming</span>
+                    </div>
+
+                    <template if:false={showEmptyTasks}>
+                        <template for:each={tasks.overdue} for:item="t">
+                            <div key={t.id} class="task-row">
+                                <div class="task-main">
+                                    <button class="record-link" data-id={t.id} data-object="Task" onclick={handleOpenRecord}>{t.subject}</button>
+                                    <div class="task-sub">Due {t.activityDate} · {t.status}</div>
+                                </div>
+                                <div class="task-actions">
+                                    <lightning-button-icon icon-name="utility:check" alternative-text="Complete" title="Complete" data-id={t.id} onclick={handleCompleteTask} disabled={busy}></lightning-button-icon>
+                                    <lightning-button-icon icon-name="utility:date_input" alternative-text="Tomorrow" title="Tomorrow" data-id={t.id} onclick={handleRescheduleTomorrow} disabled={busy}></lightning-button-icon>
+                                </div>
+                            </div>
+                        </template>
+                        <template for:each={tasks.today} for:item="t">
+                            <div key={t.id} class="task-row">
+                                <div class="task-main">
+                                    <button class="record-link" data-id={t.id} data-object="Task" onclick={handleOpenRecord}>{t.subject}</button>
+                                    <div class="task-sub">Due {t.activityDate} · {t.status}</div>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                    <template if:true={showEmptyTasks}>
+                        <div class="empty-text">No open tasks. Great job.</div>
+                    </template>
+                </div> -->
+
+                <div class="section">
+                    <h3 class="section-title">Recent Visits</h3>
+                    <template for:each={visits} for:item="v">
+                        <div key={v.visitId} class="visit-row">
+                            <div class="visit-main">
+                                <button class="record-link" data-id={v.visitId} data-object="Visit" onclick={handleOpenRecord}>
+                                    {v.physicianName}
+                                </button>
+                                <div class="visit-sub">{v.clinicName} · {v.visitTypeName}</div>
+                                <div class="visit-sub">{v.summary}</div>
+                            </div>
+                            <template if:false={v.hasNotes}>
+                                <lightning-badge label="Note Missing"></lightning-badge>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+
+              
+
+                <!--<div class="section">
+                    <h3 class="section-title">Smart Briefing</h3>
+                    <div class="briefing-body">{briefing.body}</div> 
+                </div>-->
+            </div>
+        </template>
+    </lightning-card>
+</template>

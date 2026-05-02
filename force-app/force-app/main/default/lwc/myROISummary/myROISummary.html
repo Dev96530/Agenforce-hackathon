@@ -1,0 +1,110 @@
+<template>
+    <lightning-card title="Your Impact This Quarter" icon-name="custom:custom15">
+        <div slot="actions">
+            <lightning-badge label={summary.quarter}></lightning-badge>
+        </div>
+
+        <template lwc:if={showContent}>
+            <!-- Header totals -->
+            <div class="slds-p-horizontal_medium">
+                <div class="slds-text-heading_large">{formattedTotalRevenue}</div>
+                <div class="slds-text-color_weak slds-text-body_small">
+                    {summary.totalArrivedPatients} arrivals across {summary.totalContributingPhysicians} physicians
+                </div>
+            </div>
+
+            <!-- Top by ROI -->
+            <template lwc:if={hasTopByROI}>
+                <div class="slds-p-horizontal_medium slds-p-top_medium">
+                    <div class="slds-text-title_caps slds-p-bottom_xx-small">Top by ROI</div>
+                    <template for:each={topRows} for:item="physician">
+                        <div key={physician.contactId}
+                             class="slds-p-vertical_x-small slds-border_bottom physician-row"
+                             onclick={navigateToPhysician}
+                             data-id={physician.contactId}>
+                            <div class="slds-grid slds-grid_vertical-align-center">
+                                <div class="slds-col">
+                                    <div class="slds-text-body_regular">{physician.physicianName}</div>
+                                    <div class="slds-text-body_small slds-text-color_weak">{physician.specialty}</div>
+                                </div>
+                                <div class="slds-col slds-text-align_right">
+                                    <div class="slds-text-body_regular">{physician.formattedRevenue}</div>
+                                    <div class="slds-text-body_small slds-text-color_weak">
+                                        {physician.arrivedCount} arrivals · {physician.referralCount} referrals
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Needs Attention -->
+            <template lwc:if={hasNeedsAttention}>
+                <div class="slds-p-horizontal_medium slds-p-top_medium">
+                    <div class="slds-text-title_caps slds-p-bottom_xx-small">Needs Attention</div>
+                    <template for:each={attentionRows} for:item="physician">
+                        <div key={physician.contactId}
+                             class="slds-p-vertical_x-small slds-border_bottom physician-row"
+                             onclick={navigateToPhysician}
+                             data-id={physician.contactId}>
+                            <div class="slds-grid slds-grid_vertical-align-center">
+                                <div class="slds-col">
+                                    <div class="slds-text-body_regular">{physician.physicianName}</div>
+                                    <div class="slds-text-body_small slds-text-color_weak">{physician.specialty}</div>
+                                </div>
+                                <div class="slds-col slds-text-align_right">
+                                    <div class="slds-text-body_small">{physician.referralCount} referrals</div>
+                                    <div class="slds-text-body_small slds-text-color_weak">0 arrivals</div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+
+            <!-- Top Physicians Company-Wide -->
+            <template lwc:if={hasCompanyTop}>
+                <div class="slds-p-horizontal_medium slds-p-top_medium">
+                    <div class="slds-text-title_caps slds-p-bottom_xx-small">Top Physicians Company-Wide</div>
+                    <template for:each={companyTopRows} for:item="physician">
+                        <div key={physician.contactId}
+                             class="slds-p-vertical_x-small slds-border_bottom physician-row"
+                             onclick={navigateToPhysician}
+                             data-id={physician.contactId}>
+                            <div class="slds-grid slds-grid_vertical-align-center">
+                                <div class="slds-col">
+                                    <div class="slds-text-body_regular">{physician.physicianName}</div>
+                                    <div class="slds-text-body_small slds-text-color_weak">{physician.specialty}</div>
+                                </div>
+                                <div class="slds-col slds-text-align_right">
+                                    <div class="slds-text-body_regular">{physician.formattedRevenue}</div>
+                                    <div class="slds-text-body_small slds-text-color_weak">{physician.arrivedCount} arrivals</div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </template>
+
+        <!-- Empty state -->
+        <template lwc:if={isEmpty}>
+            <div class="slds-p-around_medium slds-text-align_center slds-text-color_weak">
+                No attribution data yet this quarter — keep building relationships.
+            </div>
+        </template>
+
+        <!-- Error state -->
+        <template lwc:if={hasError}>
+            <div class="slds-p-around_medium slds-text-align_center slds-text-color_error">
+                Unable to load ROI data: {errorMessage}
+            </div>
+        </template>
+
+        <!-- Footer -->
+        <div class="slds-p-horizontal_medium slds-p-vertical_small slds-text-body_small slds-text-color_weak slds-text-align_center slds-border_top">
+            Powered by Data Cloud attribution
+        </div>
+    </lightning-card>
+</template>

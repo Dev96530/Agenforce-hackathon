@@ -1,0 +1,65 @@
+<template>
+    <lightning-card title="Visit Prep · Clinical Briefing" icon-name="standard:knowledge_base">
+
+        <!-- Header banner -->
+        <div class="cb1-header slds-var-p-horizontal_medium slds-var-p-vertical_small">
+            <template lwc:if={hasPhysicianName}>
+                <p class="slds-text-heading_small cb1-physician-name">{physicianName}</p>
+            </template>
+            <template lwc:if={hasDepartment}>
+                <p class="slds-text-body_small cb1-department slds-var-m-top_xx-small">
+                    {department}
+                </p>
+            </template>
+            <p class="slds-text-body_small cb1-source-line slds-var-m-top_x-small">
+                Sourced from Onco Global clinical documents
+            </p>
+        </div>
+
+        <div class="slds-var-p-horizontal_medium slds-var-p-bottom_medium">
+
+            <!-- Structured talking-point view -->
+            <template lwc:if={hasTalkingPoints}>
+                <template lwc:if={hasIntroLine}>
+                    <p class="slds-text-title_caps cb1-intro slds-var-m-vertical_small">
+                        {countLabel} talking points for your visit
+                    </p>
+                </template>
+
+                <template for:each={decoratedPoints} for:item="point">
+                    <div key={point.key} class={point.accentClass}>
+                        <div class="slds-grid slds-gutters_x-small slds-grid_vertical-align-start">
+                            <div class="slds-col slds-no-flex">
+                                <div class="cb1-position-bubble">
+                                    <span>{point.position}</span>
+                                </div>
+                            </div>
+                            <div class="slds-col">
+                                <p class="cb1-point-title slds-var-m-bottom_xx-small">
+                                    {point.title}
+                                </p>
+                                <p class="cb1-point-body">{point.body}</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Closing CTA -->
+                <template lwc:if={hasClosingQuestion}>
+                    <div class="cb1-cta slds-box slds-var-m-top_medium">
+                        <p class="cb1-cta-text">{closingQuestion}</p>
+                    </div>
+                </template>
+            </template>
+
+            <!-- Fallback when parser couldn't extract talking points -->
+            <template lwc:if={showFullTextFallback}>
+                <div class="slds-box slds-var-m-top_small">
+                    <p class="cb1-fallback-text">{briefingText}</p>
+                </div>
+            </template>
+
+        </div>
+
+    </lightning-card>
+</template>

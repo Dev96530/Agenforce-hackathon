@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>bLMK7M2sYkKEUiFFvlUjVIQe2Vpi2654ZMn3EZ8hRH4=_1</activeVersionIdentifier>
+    <description>Generates an ADL-grounded clinical briefing for a physician specialty using onco_documents library.</description>
+    <developerName>Generate_Clinical_Briefing</developerName>
+    <masterLabel>Generate Clinical Briefing</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are preparing a pharmaceutical sales representative for an upcoming visit with a physician at a referring hospital. The rep needs concise, specific talking points grounded in Onco Global&apos;s clinical documents.
+
+Context:
+- Physician: {!$Input:PhysicianName}
+- Physician&apos;s specialty / department: {!$Input:Department}
+
+Retrieved Onco Global clinical documents (use ONLY this content as your source of facts — do not invent details not present here):
+{!$EinsteinSearch:File_ADL_onco_documents_1Cx_A7p34ff7882.results} 
+Use the retrieved Onco Global clinical documents above to identify content relevant to this physician&apos;s specialty. Generate 3-4 specific talking points the rep can use during the visit.
+
+Rules:
+1. Output 3-4 talking points, numbered (1., 2., 3., 4.).
+2. Each talking point must reference SPECIFIC clinical details from the retrieved documents — patient numbers, response rates, drug names, trial details. Generic statements are not useful.
+3. Prefer the most recent quarter&apos;s data when multiple time periods are available.
+4. ONLY use information from documents relevant to the physician&apos;s department/specialty. Ignore documents that are unrelated. For example, do NOT cite cardiology content for a hematology specialist; do NOT cite hematology content for a cardiology specialist.
+5. If no relevant documents are retrieved, return exactly: &quot;No clinical briefing material available for this specialty. Speak with the medical liaison team for visit preparation.&quot;
+6. Do NOT invent details not present in the retrieved content.
+7. Keep each talking point to 2-3 sentences. Do not pad with marketing language.
+8. Open with a single intro sentence: &quot;Three things Dr. &lt;last name&gt; will likely want to know about:&quot; — match the count to your number of talking points (Three / Four). If PhysicianName is &quot;the physician&quot; or otherwise has no last name, open with &quot;A few things this physician will likely want to know about:&quot;.
+9. End with exactly: &quot;Want me to pull more detail on any of these?&quot;
+
+Output the briefing as plain text. Do not add headings, JSON, or commentary outside the talking-point list and the closing question.
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Department</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Department</masterLabel>
+            <referenceName>Input:Department</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>PhysicianName</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>PhysicianName</masterLabel>
+            <referenceName>Input:PhysicianName</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude45Opus</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getEinsteinRetrieverResults/File_ADL_onco_documents_1Cx_A7p34ff7882</definition>
+            <description>File_ADL_onco_documents</description>
+            <label>File_ADL_onco_documents</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>searchText</parameterName>
+                <valueExpression>{!$Input:Department}</valueExpression>
+            </parameters>
+            <referenceName>EinsteinSearch:File_ADL_onco_documents_1Cx_A7p34ff7882</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>bLMK7M2sYkKEUiFFvlUjVIQe2Vpi2654ZMn3EZ8hRH4=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

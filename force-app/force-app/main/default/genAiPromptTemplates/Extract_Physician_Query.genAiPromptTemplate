@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>ExtractPhysicianQueryV0ABCDEF1234567890HIJKLMN=_1</activeVersionIdentifier>
+    <description>Extracts the physician name from a rep&apos;s natural-language question. Returns JSON with physician_name and query_focus.</description>
+    <developerName>Extract_Physician_Query</developerName>
+    <masterLabel>Extract Physician Query</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You extract the physician subject of a sales-rep&apos;s question.
+
+Return JSON:
+{&quot;physician_name&quot;: string, &quot;query_focus&quot;: &quot;general_history&quot; | &quot;referrals&quot; | &quot;visits&quot; | &quot;tasks&quot; | &quot;expenses&quot;}
+
+Rules:
+- physician_name: the doctor the rep is asking about, including &quot;Dr.&quot; prefix if spoken. Never invent names.
+- query_focus: a hint about what aspect they care most about. Default &quot;general_history&quot; for open-ended questions.
+
+Return ONLY single-line JSON. No code fences. No prose.
+
+Example 1: &quot;What&apos;s my history with Dr. Arjun Sharma?&quot; -&gt; {&quot;physician_name&quot;:&quot;Dr. Arjun Sharma&quot;,&quot;query_focus&quot;:&quot;general_history&quot;}
+Example 2: &quot;When did I last see Dr. Mehta?&quot; -&gt; {&quot;physician_name&quot;:&quot;Dr. Mehta&quot;,&quot;query_focus&quot;:&quot;visits&quot;}
+Example 3: &quot;What was the last referral from Dr. Kavya Reddy?&quot; -&gt; {&quot;physician_name&quot;:&quot;Dr. Kavya Reddy&quot;,&quot;query_focus&quot;:&quot;referrals&quot;}
+Example 4: &quot;How much have I spent on Dr. Sharma this year?&quot; -&gt; {&quot;physician_name&quot;:&quot;Dr. Sharma&quot;,&quot;query_focus&quot;:&quot;expenses&quot;}
+
+Utterance:
+{!$Input:QueryUtterance}
+</content>
+        <inputs>
+            <apiName>QueryUtterance</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>QueryUtterance</masterLabel>
+            <referenceName>Input:QueryUtterance</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude46Sonnet</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>ExtractPhysicianQueryV0ABCDEF1234567890HIJKLMN=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

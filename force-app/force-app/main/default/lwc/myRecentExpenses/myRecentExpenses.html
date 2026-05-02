@@ -1,0 +1,53 @@
+<template>
+    <lightning-card title="My Expenses" icon-name="standard:expense">
+        <div class="slds-p-horizontal_medium">
+            <template if:true={summary}>
+                <div class="summary-row">
+                    <div class="summary-tile">
+                        <div class="summary-label">This week</div>
+                        <div class="summary-value">{summary.weekLabel}</div>
+                        <div class="summary-sub">{summary.weekCount} entries</div>
+                    </div>
+                    <div class="summary-tile">
+                        <div class="summary-label">This month</div>
+                        <div class="summary-value">{summary.monthLabel}</div>
+                        <div class="summary-sub">{summary.monthCount} entries</div>
+                    </div>
+                </div>
+            </template>
+            <template if:true={summaryError}>
+                <div class="slds-text-color_error slds-p-vertical_x-small">{summaryError}</div>
+            </template>
+
+            <template if:true={hasRows}>
+                <ul class="expense-list slds-m-top_small">
+                    <template for:each={rows} for:item="row">
+                        <li key={row.id}
+                            class="expense-row"
+                            data-id={row.id}
+                            onclick={handleRowClick}>
+                            <div class="expense-row-top">
+                                <span class="expense-amount">{row.amountLabel}</span>
+                                <span class="expense-date">{row.dateLabel}</span>
+                            </div>
+                            <div class="expense-row-bottom">
+                                <span class="expense-title">{row.title}</span>
+                                <template if:true={row.linkedToVisit}>
+                                    <span class="expense-physician"> &middot; {row.physicianLabel}</span>
+                                </template>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+            <template if:false={hasRows}>
+                <div class="slds-p-vertical_medium slds-text-align_center slds-text-color_weak">
+                    No expenses yet. Dictate one to the agent to get started.
+                </div>
+            </template>
+            <template if:true={rowsError}>
+                <div class="slds-text-color_error slds-p-vertical_x-small">{rowsError}</div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

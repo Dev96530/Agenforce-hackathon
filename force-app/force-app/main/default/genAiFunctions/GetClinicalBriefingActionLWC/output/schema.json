@@ -1,0 +1,15 @@
+{
+    "unevaluatedProperties": false,
+    "properties": {
+        "briefingText": {
+            "title": "briefingText",
+            "description": "Generated clinical briefing text — already formatted with numbered talking points and a closing question. Relay verbatim, do not paraphrase.",
+            "lightning:type": "lightning__textType",
+            "lightning:isPII": false,
+            "copilotAction:isDisplayable": true,
+            "copilotAction:isUsedByPlanner": true,
+            "copilotAction:useHydratedPrompt": false
+        }
+    },
+    "lightning:type": "lightning__objectType"
+}

@@ -1,0 +1,15 @@
+{
+    "unevaluatedProperties": false,
+    "properties": {
+        "briefing": {
+            "title": "briefing",
+            "description": "Structured clinical briefing — flat 3-String CLT (physicianName, department, briefingText). Renders as a Lightning card.",
+            "lightning:type": "c__clinicalBriefingCard1",
+            "lightning:isPII": false,
+            "copilotAction:isDisplayable": true,
+            "copilotAction:isUsedByPlanner": true,
+            "copilotAction:useHydratedPrompt": false
+        }
+    },
+    "lightning:type": "lightning__objectType"
+}

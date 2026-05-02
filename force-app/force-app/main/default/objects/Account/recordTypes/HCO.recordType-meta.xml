@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HCO</fullName>
+    <active>true</active>
+    <description>Healthcare Organization — hospital, clinic, or diagnostic center. Used for external clinics where Onco Global reps visit referring physicians.</description>
+    <label>HCO</label>
+    <picklistValues>
+        <picklist>Industry</picklist>
+        <values>
+            <fullName>Healthcare %26 Life Sciences</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Customer</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

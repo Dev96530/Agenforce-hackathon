@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>UC9-LWC v1 — rich card variant. Generates an ADL-grounded clinical briefing as a flat CLT with primitives + parallel List&lt;String&gt; arrays (titles + bodies) for structured talking-point rendering. No nested inner classes. Briefing text retained as fallback. Delegates to GetClinicalBriefingAction for prompt-template invocation.</description>
+    <developerName>GetClinicalBriefingActionLWC1</developerName>
+    <invocationTarget>GetClinicalBriefingActionLWC1</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+    <localDeveloperName>GetClinicalBriefingActionLWC1</localDeveloperName>
+    <masterLabel>Get Clinical Briefing (LWC v1)</masterLabel>
+    <progressIndicatorMessage>Pulling clinical capabilities for visit prep</progressIndicatorMessage>
+</GenAiFunction>

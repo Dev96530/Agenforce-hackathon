@@ -1,0 +1,5 @@
+{
+  "title": "Clinical Briefing Card v1",
+  "description": "ADL-grounded clinical briefing — flat 3-String CLT for simple LWC render.",
+  "lightning:type": "@apexClassType/c__GetClinicalBriefingActionLWC1$ClinicalBriefingCard"
+}

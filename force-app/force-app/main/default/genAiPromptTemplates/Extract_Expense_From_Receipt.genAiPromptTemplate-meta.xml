@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>bLMK7M2sYkKEUiFFvlUjVIQe2Vpi2654ZMn3EZ8hRH4=_2</activeVersionIdentifier>
+    <description>Extracts expense fields from a receipt image. Returns JSON with amount, expense_type, transaction_date, physician_name (always null), venue, description_clean.</description>
+    <developerName>Extract_Expense_From_Receipt</developerName>
+    <masterLabel>Extract Expense From Receipt</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are an expert at extracting expense information from Indian restaurant, hotel, and travel receipts.
+
+Return JSON:
+{&quot;amount&quot;: number|null, &quot;expense_type&quot;: &quot;Meals&quot;|&quot;Lodging&quot;|&quot;Mileage&quot;|&quot;Travel&quot;|&quot;Other&quot;, &quot;transaction_date&quot;: &quot;YYYY-MM-DD&quot;, &quot;physician_name&quot;: null, &quot;venue&quot;: string|null, &quot;description_clean&quot;: string}
+
+Rules:
+- amount: the total/grand total on the receipt. Largest prominent amount if multiple are visible. NUMBER, not string. No currency symbol.
+- expense_type: infer from receipt type (restaurant -&gt; Meals, hotel folio -&gt; Lodging, cab/taxi -&gt; Mileage, flight/train -&gt; Travel). Default to Other if ambiguous.
+- transaction_date: ISO YYYY-MM-DD. If readable from receipt, use it. Else use {!$Input:CurrentDate}.
+- physician_name: always null.
+- venue: merchant / restaurant / hotel name from the receipt header.
+- description_clean: one-line summary like &quot;Lunch receipt from Taj Lands End&quot;.
+
+Non-receipt safety: if the image is not a receipt (selfie, screenshot, random photo), return amount=null with description_clean=&quot;Uploaded image does not appear to be a receipt.&quot;
+
+Partial extraction OK: if amount readable but venue unclear, fill what you can. Never fail.
+
+Return ONLY single-line JSON. No code fences. No prose.
+
+Example 1 (restaurant): {&quot;amount&quot;:1250,&quot;expense_type&quot;:&quot;Meals&quot;,&quot;transaction_date&quot;:&quot;2026-04-21&quot;,&quot;physician_name&quot;:null,&quot;venue&quot;:&quot;Taj Lands End&quot;,&quot;description_clean&quot;:&quot;Lunch receipt from Taj Lands End&quot;}
+Example 2 (cab): {&quot;amount&quot;:680,&quot;expense_type&quot;:&quot;Mileage&quot;,&quot;transaction_date&quot;:&quot;2026-04-21&quot;,&quot;physician_name&quot;:null,&quot;venue&quot;:&quot;Uber&quot;,&quot;description_clean&quot;:&quot;Cab fare Uber&quot;}
+Example 3 (non-receipt): {&quot;amount&quot;:null,&quot;expense_type&quot;:&quot;Other&quot;,&quot;transaction_date&quot;:&quot;2026-04-21&quot;,&quot;physician_name&quot;:null,&quot;venue&quot;:null,&quot;description_clean&quot;:&quot;Uploaded image does not appear to be a receipt.&quot;}
+
+Receipt image: {!$Input:Receipt}
+Today: {!$Input:CurrentDate}
+</content>
+        <inputs>
+            <apiName>Receipt</apiName>
+            <definition>SOBJECT://ContentDocument</definition>
+            <masterLabel>Receipt</masterLabel>
+            <referenceName>Input:Receipt</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>CurrentDate</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>CurrentDate</masterLabel>
+            <referenceName>Input:CurrentDate</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude46Sonnet</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>ExtractExpenseFromReceiptV0ABCDEF1234567890HIJK=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert at extracting expense information from Indian restaurant, hotel, and travel receipts.
+
+Return JSON:
+{&quot;amount&quot;: number|null, &quot;expense_type&quot;: &quot;Meals&quot;|&quot;Lodging&quot;|&quot;Mileage&quot;|&quot;Travel&quot;|&quot;Other&quot;, &quot;transaction_date&quot;: &quot;YYYY-MM-DD&quot;, &quot;physician_name&quot;: null, &quot;venue&quot;: string|null, &quot;description_clean&quot;: string}
+
+Rules:
+- amount: the total/grand total on the receipt. Largest prominent amount if multiple are visible. NUMBER, not string. No currency symbol.
+- expense_type: infer from receipt type (restaurant -&gt; Meals, hotel folio -&gt; Lodging, cab/taxi -&gt; Mileage, flight/train -&gt; Travel). Default to Other if ambiguous.
+- transaction_date: ISO YYYY-MM-DD. If readable from receipt, use it. Else use {!$Input:CurrentDate}.
+- physician_name: always null.
+- venue: merchant / restaurant / hotel name from the receipt header.
+- description_clean: one-line summary like &quot;Lunch receipt from Taj Lands End&quot;.
+
+Non-receipt safety: if the image is not a receipt (selfie, screenshot, random photo), return amount=null with description_clean=&quot;Uploaded image does not appear to be a receipt.&quot;
+
+Partial extraction OK: if amount readable but venue unclear, fill what you can. Never fail.
+
+Return ONLY single-line JSON. No code fences. No prose.
+
+Example 1 (restaurant): {&quot;amount&quot;:1250,&quot;expense_type&quot;:&quot;Meals&quot;,&quot;transaction_date&quot;:&quot;2026-04-21&quot;,&quot;physician_name&quot;:null,&quot;venue&quot;:&quot;Taj Lands End&quot;,&quot;description_clean&quot;:&quot;Lunch receipt from Taj Lands End&quot;}
+Example 2 (cab): {&quot;amount&quot;:680,&quot;expense_type&quot;:&quot;Mileage&quot;,&quot;transaction_date&quot;:&quot;2026-04-21&quot;,&quot;physician_name&quot;:null,&quot;venue&quot;:&quot;Uber&quot;,&quot;description_clean&quot;:&quot;Cab fare Uber&quot;}
+Example 3 (non-receipt): {&quot;amount&quot;:null,&quot;expense_type&quot;:&quot;Other&quot;,&quot;transaction_date&quot;:&quot;2026-04-21&quot;,&quot;physician_name&quot;:null,&quot;venue&quot;:null,&quot;description_clean&quot;:&quot;Uploaded image does not appear to be a receipt.&quot;}
+
+Receipt image: {!$RecordSnapshot:Receipt.snapshot}
+Today: {!$Input:CurrentDate} 
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Receipt</apiName>
+            <definition>SOBJECT://ContentDocument</definition>
+            <masterLabel>Receipt</masterLabel>
+            <referenceName>Input:Receipt</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>CurrentDate</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>CurrentDate</masterLabel>
+            <referenceName>Input:CurrentDate</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude46Sonnet</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getDataForGrounding</definition>
+            <description>Retrieves record data for grounding a prompt template.</description>
+            <label>Record Snapshot</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>recordId</parameterName>
+                <valueExpression>{!$Input:Receipt.Id}</valueExpression>
+            </parameters>
+            <referenceName>RecordSnapshot:Receipt</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>bLMK7M2sYkKEUiFFvlUjVIQe2Vpi2654ZMn3EZ8hRH4=_2</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>ExtractExpenseFromInputV0ABCDEF1234567890HIJKLMN=_1</activeVersionIdentifier>
+    <description>Extracts an expense (amount, date, physician, venue, cleaned description) from a rep&apos;s spend utterance. Uses CurrentDate to resolve relative dates to YYYY-MM-DD.</description>
+    <developerName>Extract_Expense_From_Input</developerName>
+    <masterLabel>Extract Expense From Input</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You extract structured expense information from a pharma field-rep&apos;s spend utterance.
+
+Today&apos;s date is: {!$Input:CurrentDate}
+
+Return JSON with this exact shape:
+{&quot;amount&quot;: number, &quot;transaction_date&quot;: &quot;YYYY-MM-DD&quot;, &quot;physician_name&quot;: string or null, &quot;venue&quot;: string or null, &quot;description_clean&quot;: string}
+
+Rules:
+- amount: decimal number only, no currency symbol. &quot;1,250 rupees&quot; -&gt; 1250. &quot;Rs 500&quot; -&gt; 500. If no amount can be extracted, return 0.
+- transaction_date: resolve relative phrases (&quot;today&quot;, &quot;yesterday&quot;, &quot;last Tuesday&quot;, &quot;Monday&quot;) using CurrentDate. Default to CurrentDate if the rep didn&apos;t specify.
+- physician_name: only if a specific person is named with a title (e.g. &quot;Dr. Kumar&quot;). Null otherwise. Do NOT invent a name.
+- venue: restaurant, hotel, or place mentioned. Null otherwise.
+- description_clean: one-line actionable summary suitable for a Title field.
+
+Return ONLY the single-line JSON. No code fences. No prose. No explanation.
+
+Example 1 (input, CurrentDate 2026-04-19): &quot;I spent 1,250 rupees on lunch with Dr. Kumar at Taj Lands End today.&quot;
+Example 1 (output): {&quot;amount&quot;:1250,&quot;transaction_date&quot;:&quot;2026-04-19&quot;,&quot;physician_name&quot;:&quot;Dr. Kumar&quot;,&quot;venue&quot;:&quot;Taj Lands End&quot;,&quot;description_clean&quot;:&quot;Lunch with Dr. Kumar at Taj Lands End&quot;}
+
+Example 2 (input, CurrentDate 2026-04-19): &quot;Cab fare to Fortis Mulund, 680 rupees this morning.&quot;
+Example 2 (output): {&quot;amount&quot;:680,&quot;transaction_date&quot;:&quot;2026-04-19&quot;,&quot;physician_name&quot;:null,&quot;venue&quot;:&quot;Fortis Mulund&quot;,&quot;description_clean&quot;:&quot;Cab fare to Fortis Mulund&quot;}
+
+Example 3 (input, CurrentDate 2026-04-19): &quot;Hotel stay yesterday, 4200 rupees.&quot;
+Example 3 (output): {&quot;amount&quot;:4200,&quot;transaction_date&quot;:&quot;2026-04-18&quot;,&quot;physician_name&quot;:null,&quot;venue&quot;:null,&quot;description_clean&quot;:&quot;Hotel stay&quot;}
+
+Utterance:
+{!$Input:ExpenseUtterance}
+</content>
+        <inputs>
+            <apiName>ExpenseUtterance</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>ExpenseUtterance</masterLabel>
+            <referenceName>Input:ExpenseUtterance</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>CurrentDate</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>CurrentDate</masterLabel>
+            <referenceName>Input:CurrentDate</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude46Sonnet</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>ExtractExpenseFromInputV0ABCDEF1234567890HIJKLMN=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

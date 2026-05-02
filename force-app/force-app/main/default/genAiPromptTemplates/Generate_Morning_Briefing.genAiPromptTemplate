@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>GenerateMorningBriefingV0A1B2C3D4E5F6G7H8I9J=_3</activeVersionIdentifier>
+    <description>UC8 — Synthesizes a single-paragraph morning briefing from a JSON list of section-ordered priorities (Recent Arrivals, Needs Attention, Stale High Value, Tasks).</description>
+    <developerName>Generate_Morning_Briefing</developerName>
+    <masterLabel>Generate Morning Briefing</masterLabel>
+    <templateVersions>
+        <content>You are generating a personalized morning briefing for a pharmaceutical sales representative in India.
+
+Input:
+- Rep&apos;s first name: {!$Input:RepFirstName}
+- Today&apos;s priorities (JSON array, already in section order): {!$Input:PrioritiesJson}
+
+Each priority object in the JSON has fields: sourceType, physicianName, detail.
+
+Rules:
+1. Output MUST be a single natural-language paragraph. No bullets, no numbered lists, no line breaks.
+2. Start with EXACTLY: &quot;{count} things for today.&quot; where {count} is &quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;, &quot;Four&quot;, or &quot;Five&quot; matching the array length. (If 1 priority, write &quot;One thing for today.&quot;)
+3. Summarize each priority in ONE conversational sentence in the order given. The `detail` field already contains the gist and the action verb — re-phrase naturally, do not just paste it. Each sentence ends with a period.
+4. NEVER reorder the priorities. Maintain JSON array order.
+5. Total output MUST be under 400 characters. If approaching the limit, shorten sentences but never drop a priority.
+6. Do NOT greet the rep. Do NOT add a closing call-to-action. The WhatsApp template handles greeting + closing.
+
+Tone by sourceType:
+- recent_arrival   → celebration / thank-you opportunity (&quot;worth a thank-you&quot;)
+- needs_attention  → gentle risk flag (&quot;time for a check-in&quot;)
+- stale_high_value → connect ROI with cooling relationship (&quot;due for a visit&quot;)
+- overdue_task / due_today_task → state task + deadline concisely
+
+Example output (do NOT copy verbatim — generate fresh from the actual input):
+&quot;Three things for today. Sharma&apos;s referred patient arrived yesterday — worth a thank-you call. Reddy sent 1 referral but none arrived — time for a check-in. Mehta is your top ROI at $630K but 35 days since last visit — schedule a touchpoint.&quot;
+
+Output ONLY the briefing paragraph. No quotes, no JSON, no code fences, no preamble.</content>
+        <inputs>
+            <apiName>RepFirstName</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>RepFirstName</masterLabel>
+            <referenceName>Input:RepFirstName</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>PrioritiesJson</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>PrioritiesJson</masterLabel>
+            <referenceName>Input:PrioritiesJson</referenceName>
+            <required>true</required>
+        </inputs>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude46Sonnet</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>GenerateMorningBriefingV0A1B2C3D4E5F6G7H8I9J=_3</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

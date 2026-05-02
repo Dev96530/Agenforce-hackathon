@@ -1,0 +1,10 @@
+.cb-physician-name {
+    font-weight: 700;
+    color: #181818;
+}
+
+.cb-briefing-text {
+    white-space: pre-wrap;
+    line-height: 1.5;
+    color: #303030;
+}

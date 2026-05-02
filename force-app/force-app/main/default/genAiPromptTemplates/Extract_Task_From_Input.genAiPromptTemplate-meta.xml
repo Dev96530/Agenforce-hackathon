@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>ExtractTaskFromInputV0A1B2C3D4E5F6G7H8I9J0KLMNO=_1</activeVersionIdentifier>
+    <description>Extracts one or more tasks from a rep&apos;s direct task / reminder utterance. Returns a tasks[] array. Uses CurrentDate to resolve relative date phrases to YYYY-MM-DD.</description>
+    <developerName>Extract_Task_From_Input</developerName>
+    <masterLabel>Extract Task From Input</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You extract structured task information from a pharma field-rep&apos;s direct task/reminder utterance.
+
+Today&apos;s date is: {!$Input:CurrentDate}
+
+A single utterance may contain one OR multiple tasks (e.g. &quot;remind me to call X tomorrow AND email Y next Friday&quot;). Always extract every task you can find.
+
+Return JSON with this exact shape:
+{&quot;tasks&quot;: [{&quot;description&quot;: string, &quot;due_date&quot;: &quot;YYYY-MM-DD&quot; or null, &quot;physician_name&quot;: string or null}]}
+
+Rules:
+- description: clean, actionable verb phrase (e.g. &quot;Send Q4 outcomes report to Dr. Sharma&quot;). Do NOT prepend &quot;Remind me to&quot;.
+- due_date: resolve relative phrases (&quot;tomorrow&quot;, &quot;next Friday&quot;, &quot;in 3 days&quot;) using CurrentDate. Return strict YYYY-MM-DD, or null (JSON null) if no due date is mentioned.
+- physician_name: the person the task relates to, if specifically named (with &quot;Dr.&quot; prefix if spoken). Null if no specific person is named. Do NOT invent a name.
+- tasks: always an array, even for a single task.
+
+Return ONLY the single-line JSON. No code fences. No prose. No explanation.
+
+Example 1 (input, CurrentDate 2026-04-19): &quot;Remind me to call Sunrise Clinic admin tomorrow.&quot;
+Example 1 (output): {&quot;tasks&quot;:[{&quot;description&quot;:&quot;Call Sunrise Clinic admin&quot;,&quot;due_date&quot;:&quot;2026-04-20&quot;,&quot;physician_name&quot;:null}]}
+
+Example 2 (input, CurrentDate 2026-04-19): &quot;Add a follow-up to send Dr. Arjun Sharma the Q4 outcomes report next Friday.&quot;
+Example 2 (output): {&quot;tasks&quot;:[{&quot;description&quot;:&quot;Send Q4 outcomes report to Dr. Arjun Sharma&quot;,&quot;due_date&quot;:&quot;2026-04-24&quot;,&quot;physician_name&quot;:&quot;Dr. Arjun Sharma&quot;}]}
+
+Example 3 (input, CurrentDate 2026-04-19): &quot;Remind me to call the Sunrise admin tomorrow and send Dr. Mehta the Q4 report next Friday.&quot;
+Example 3 (output): {&quot;tasks&quot;:[{&quot;description&quot;:&quot;Call the Sunrise Clinic admin&quot;,&quot;due_date&quot;:&quot;2026-04-20&quot;,&quot;physician_name&quot;:null},{&quot;description&quot;:&quot;Send Q4 report to Dr. Mehta&quot;,&quot;due_date&quot;:&quot;2026-04-24&quot;,&quot;physician_name&quot;:&quot;Dr. Mehta&quot;}]}
+
+Example 4 (input, CurrentDate 2026-04-19): &quot;Task: review the new brochure design.&quot;
+Example 4 (output): {&quot;tasks&quot;:[{&quot;description&quot;:&quot;Review the new brochure design&quot;,&quot;due_date&quot;:null,&quot;physician_name&quot;:null}]}
+
+Utterance:
+{!$Input:TaskUtterance}
+</content>
+        <inputs>
+            <apiName>TaskUtterance</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>TaskUtterance</masterLabel>
+            <referenceName>Input:TaskUtterance</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>CurrentDate</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>CurrentDate</masterLabel>
+            <referenceName>Input:CurrentDate</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultBedrockAnthropicClaude46Sonnet</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>ExtractTaskFromInputV0A1B2C3D4E5F6G7H8I9J0KLMNO=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

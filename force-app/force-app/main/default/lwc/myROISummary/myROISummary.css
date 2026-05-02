@@ -1,0 +1,6 @@
+.physician-row {
+    cursor: pointer;
+}
+.physician-row:hover {
+    background-color: var(--sds-c-card-color-background-alt, #f3f3f3);
+}

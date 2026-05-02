@@ -1,0 +1,118 @@
+.hub-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+}
+
+.kpi-tile {
+    border: 1px solid #dddbda;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    background: #f8f9fb;
+}
+
+.kpi-label {
+    font-size: 0.72rem;
+    color: #5f5c80;
+}
+
+.kpi-value {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.kpi-value.overdue {
+    color: #b60554;
+}
+
+.section {
+    border: 1px solid #ecebea;
+    border-radius: 0.5rem;
+    padding: 0.6rem;
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.alert-row,
+.task-row,
+.visit-row,
+.expense-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #f3f2f2;
+}
+
+.alert-row:last-child,
+.task-row:last-child,
+.visit-row:last-child,
+.expense-row:last-child {
+    border-bottom: 0;
+}
+
+.alert-main,
+.task-main,
+.visit-main,
+.expense-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.alert-title {
+    font-weight: 600;
+}
+
+.alert-detail,
+.task-sub,
+.visit-sub,
+.expense-sub,
+.empty-text,
+.expense-footer,
+.briefing-body {
+    color: #514f67;
+    font-size: 0.78rem;
+}
+
+.record-link {
+    border: 0;
+    background: transparent;
+    color: #0176d3;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.task-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.badge-label {
+    margin-right: 0.3rem;
+    font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .kpi-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}

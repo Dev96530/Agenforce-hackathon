@@ -1,0 +1,5 @@
+{
+  "title": "Physician Insights Card",
+  "description": "Structured physician relationship insights for rich card render in Agentforce.",
+  "lightning:type": "@apexClassType/c__PhysicianInsightsServiceLWC$PhysicianInsightsCard"
+}

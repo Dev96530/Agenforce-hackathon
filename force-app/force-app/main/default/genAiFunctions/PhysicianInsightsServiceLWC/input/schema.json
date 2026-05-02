@@ -1,0 +1,14 @@
+{
+  "required" : [ "queryUtterances" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "queryUtterances" : {
+      "title" : "queryUtterances",
+      "description" : "The rep's raw question about the physician, supplied from the insightsQuery agent variable.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

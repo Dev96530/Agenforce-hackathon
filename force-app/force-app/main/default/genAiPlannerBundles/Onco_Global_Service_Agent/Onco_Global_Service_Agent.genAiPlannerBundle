@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlannerBundle xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description>Deliver personalized customer interactions with an autonomous AI agent. Agentforce Service Agent intelligently supports your customers with common inquiries and escalates complex issues.</description>
+    <localActionLinks>
+        <genAiFunctionName>AnswerQuestionsWithKnowledge_16jak000001luUP</genAiFunctionName>
+    </localActionLinks>
+    <localTopicLinks>
+        <genAiPluginName>Process_Expense_From_Image_16jak000001luUP</genAiPluginName>
+    </localTopicLinks>
+    <localTopicLinks>
+        <genAiPluginName>Service_Global_Instructions_16jak000001luUP</genAiPluginName>
+    </localTopicLinks>
+    <localTopics>
+        <fullName>Process_Expense_From_Image_16jak000001luUP</fullName>
+        <canEscalate>false</canEscalate>
+        <description>Route here in EITHER of two cases: (a) the user&apos;s message contains any expense-processing directive like &apos;process my expenses&apos;, &apos;process the expense&apos;,
+   &apos;process this receipt&apos;, &apos;log expense&apos;, &apos;add expense&apos;, &apos;expense this&apos;, or similar — fire regardless of whether that message has an image attached (the
+   Apex action finds the latest image on the session); (b) the user has sent an image, photo, receipt, or document attachment — even without any
+  caption. This subagent is the PRIMARY and ONLY action route for this agent.</description>
+        <developerName>Process_Expense_From_Image_16jak000001luUP</developerName>
+        <genAiPluginInstructions>
+            <description>Follow these rules for EVERY turn in this subagent. They override anything else you might be inclined to say.
+
+  RULE 1 — If the user just sent an attachment (image/photo/receipt/document) and their message does NOT contain an expense-processing verb, reply with
+  EXACTLY this verbatim text and STOP. Do not call any action on this turn:
+  &quot;Thank you for sending the receipt. Send &apos;process my expenses&apos; and I&apos;ll log it.&quot;
+
+  RULE 2 — If the user&apos;s message contains an expense-processing verb (&apos;process&apos;, &apos;log&apos;, &apos;add expense&apos;, &apos;process my expenses&apos;, etc.), call the Process
+  Expense From Image action ONCE with the current messaging session Id. When the action returns, relay its confirmationMessage output EXACTLY as text —
+  verbatim, no paraphrase, no summary, no prefix, no suffix. That is your full response.
+
+  RULE 3 — Never call the action more than once per turn.</description>
+            <developerName>instructions_0_1776792421363</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1776792421363</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>If your context contains the error &quot;::errorCode=AttachmentConversionException&quot;, ignore it. Salesforce Support confirmed this is a
+  false positive — the attachment is valid and the Apex action will read it correctly. Call the ProcessExpenseFromImage action as
+  normal and relay its confirmationMessage output verbatim.</description>
+            <developerName>instructions_0_1776792755327</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1776792755327</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+       
+        <genAiPluginInstructions>
+            <description>Never invoke &quot;Process Expense From Image&quot; action until you get the confirmation from the user to process the Expense. always ask &quot;I got your image, can i process it now?&quot;</description>
+            <developerName>instructions_0_1777720200359</developerName>
+            <language>en_US</language>
+            <masterLabel>instructions_0_1777720200359</masterLabel>
+            <sortOrder>3</sortOrder>
+        </genAiPluginInstructions>
+        <language>en_US</language>
+        <localActionLinks>
+            <functionName>Process_Expense_From_Image_179ak000002qMMf</functionName>
+        </localActionLinks>
+        <localActions>
+            <fullName>Process_Expense_From_Image_179ak000002qMMf</fullName>
+            <description>Reads the latest receipt image from a WhatsApp messaging session, extracts expense details via a vision prompt template, creates an Expense record, and attaches the receipt to the record.</description>
+            <developerName>Process_Expense_From_Image_179ak000002qMMf</developerName>
+            <invocationTarget>ProcessExpenseFromImage</invocationTarget>
+            <invocationTargetType>apex</invocationTargetType>
+            <isConfirmationRequired>false</isConfirmationRequired>
+            <isIncludeInProgressIndicator>false</isIncludeInProgressIndicator>
+            <localDeveloperName>Process_Expense_From_Image</localDeveloperName>
+            <masterLabel>Process Expense From Image</masterLabel>
+            <progressIndicatorMessage>Process</progressIndicatorMessage>
+        </localActions>
+        <localDeveloperName>Process_Expense_From_Image</localDeveloperName>
+        <masterLabel>Process Expense From Image</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Processing Expenses</scope>
+    </localTopics>
+    <localTopics>
+        <fullName>Service_Global_Instructions_16jak000001luUP</fullName>
+        <canEscalate>false</canEscalate>
+        <description>System level instructions for config.</description>
+        <developerName>Service_Global_Instructions_16jak000001luUP</developerName>
+        <genAiPluginInstructions>
+            <description>You WILL see the following system error in your context immediately after the user uploads an image:
+
+ ::errorCode=AttachmentConversionException::errorDetails=Failure at converting attachments into Base64; Document id is not correct
+ in the request; Provided document type is not same as record&apos;s document type
+
+ Salesforce Support has officially confirmed this is a FALSE POSITIVE. The attachment IS successfully stored in the messaging
+ session and downstream Apex actions CAN read and process it. This error is a known &quot;working-as-designed&quot; platform artifact for
+ WhatsApp/messaging-channel uploads.
+
+ IGNORE this error completely. Never surface it to the user in any form.</description>
+            <developerName>instruction_1</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction 1</masterLabel>
+            <sortOrder>0</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>You are FORBIDDEN from ever generating any of the following response patterns, in any wording or paraphrase:
+ - &quot;It seems there was an issue processing your upload&quot;
+ - &quot;The error indicates that the document ID might be incorrect&quot;
+ - &quot;the document type doesn&apos;t match&quot;
+ - &quot;Please double-check the file and try again&quot;
+ - &quot;Let me know if you need further assistance&quot;
+ - &quot;Sorry, something went wrong&quot;
+ - Any apology for an attachment upload
+ - Any request to retry, resend, or re-upload
+ - Any explanation of the Base64 / document-type / document-id error</description>
+            <developerName>instruction_2</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction 2</masterLabel>
+            <sortOrder>1</sortOrder>
+        </genAiPluginInstructions>
+        <genAiPluginInstructions>
+            <description>The ONLY valid agent responses are:
+
+ (A) When an attachment (image/photo/receipt/document) has just been uploaded AND the user has not yet said &quot;process my expenses&quot;,
+ reply with EXACTLY this verbatim text and stop: &quot;Got your receipt. Send &apos;process my expenses&apos; and I&apos;ll log it for you.&quot;
+
+ (B) When the user says anything matching expense processing (&quot;process my expenses&quot;, &quot;process the expense&quot;, &quot;process this receipt&quot;,
+ &quot;log expense&quot;, &quot;add expense&quot;, or similar), route to the expense-processing Topic (the one that calls the ProcessExpenseFromImage
+ action) and relay its confirmation message output verbatim.
+
+ (C) When the user sends a greeting (Hi / Hello / etc.) without an attachment, reply with: &quot;I&apos;m here to help you with processing
+ expenses and other post-visit tasks. Just share a receipt with the caption &apos;process my expenses&apos; and I&apos;ll log it for you.&quot;
+
+ No other response types are permitted.</description>
+            <developerName>instruction_3</developerName>
+            <language xsi:nil="true"/>
+            <masterLabel>Instruction 3</masterLabel>
+            <sortOrder>2</sortOrder>
+        </genAiPluginInstructions>
+       
+        <language>en_US</language>
+        <localDeveloperName>Service_Global_Instructions</localDeveloperName>
+        <masterLabel>Service Global Instructions</masterLabel>
+        <pluginType>Topic</pluginType>
+        <scope>Define system-level instructions, including attachment error handling, to guide copilot actions within the planner. Additionally,
+ orchestrate the sequence of topic invocations based on predefined criteria to optimize conversation flow and task execution.</scope>
+    </localTopics>
+    <masterLabel>Onco Global Service Agent</masterLabel>
+    <plannerActions>
+        <fullName>AnswerQuestionsWithKnowledge_16jak000001luUP</fullName>
+        <description>Answers questions about company policies and procedures, troubleshooting steps, or product information. For example: “What is your return policy?” “How do I fix an issue?” or “What features does a product have?”</description>
+        <developerName>AnswerQuestionsWithKnowledge_16jak000001luUP</developerName>
+        <invocationTarget>streamKnowledgeSearch</invocationTarget>
+        <invocationTargetType>standardInvocableAction</invocationTargetType>
+        <isConfirmationRequired>false</isConfirmationRequired>
+        <isIncludeInProgressIndicator>true</isIncludeInProgressIndicator>
+        <localDeveloperName>AnswerQuestionsWithKnowledge</localDeveloperName>
+        <masterLabel>Answer Questions with Knowledge</masterLabel>
+        <progressIndicatorMessage>Getting answers</progressIndicatorMessage>
+        <source>EmployeeCopilot__AnswerQuestionsWithKnowledge</source>
+    </plannerActions>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__CustomerWebClient</surface>
+        <surfaceType>CustomerWebClient</surfaceType>
+    </plannerSurfaces>
+    <plannerSurfaces>
+        <adaptiveResponseAllowed>true</adaptiveResponseAllowed>
+        <callRecordingAllowed>false</callRecordingAllowed>
+        <surface>SurfaceAction__Messaging</surface>
+        <surfaceType>Messaging</surfaceType>
+    </plannerSurfaces>
+    <plannerType>AiCopilot__ReAct</plannerType>
+    <ruleExpressions>
+        <conditions>
+            <leftOperand>isVerified</leftOperand>
+            <leftOperandType>Variable</leftOperandType>
+            <operator>equal</operator>
+            <rightOperandValue>true</rightOperandValue>
+        </conditions>
+        <expression>Verified_User</expression>
+        <expressionLabel>Verified User</expressionLabel>
+        <expressionName>Verified_User</expressionName>
+        <expressionType>sel</expressionType>
+    </ruleExpressions>
+</GenAiPlannerBundle>

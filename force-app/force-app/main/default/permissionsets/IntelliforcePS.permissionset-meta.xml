@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>License-less mirror of Post_Visit_Agent_Permissions for assignment to the Intelliforce Service Agent user (einsteinAgent license). Same Apex/object/field access.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>IntelliforcePS</label>
+
+    <!-- Apex class access -->
+    <classAccesses>
+        <apexClass>LogVisitFromTranscriptAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LogTaskAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LogExpenseAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MyExpensesController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PhysicianInsightsService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ProcessExpenseFromImage</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+
+    <!-- Flow access -->
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>CreateWorkOrderForVisit</flow>
+    </flowAccesses>
+
+    <!-- Record type access -->
+    <recordTypeVisibilities>
+        <recordType>Account.HCO</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Account.Business_Account</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+
+    <!-- Object permissions -->
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>ContentDocument</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>ContentDocumentLink</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>ContentVersion</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Account</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Contact</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>HealthcareProvider</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>HealthcareFacility</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>HealthcarePractitionerFacility</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Location</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>WorkType</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Visit</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>VisitedParty</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>WorkOrder</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Task</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Expense</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>ClinicalServiceRequest</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>ServiceAppointment</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+
+    <!-- Field permissions: Visit -->
+    <fieldPermissions><field>Visit.VisitorId</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Visit.VisitTypeId</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Visit.ActualVisitStartTime</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Visit.StatusRemarks</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Visit.Rep_Sentiment__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+
+    <!-- Field permissions: VisitedParty (VisitId, ContactId are required/MD — omit) -->
+    <fieldPermissions><field>VisitedParty.IsPrimaryContact</field><readable>true</readable><editable>true</editable></fieldPermissions>
+
+    <!-- Field permissions: WorkOrder -->
+    <fieldPermissions><field>WorkOrder.Subject</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>WorkOrder.Status</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>WorkOrder.Visit__c</field><readable>true</readable><editable>true</editable></fieldPermissions>
+
+    <!-- Field permissions: HealthcareFacility (AccountId is MasterDetail, omit) -->
+    <fieldPermissions><field>HealthcareFacility.LocationId</field><readable>true</readable><editable>false</editable></fieldPermissions>
+
+    <!-- Field permissions: Task (UC2). Status is required, omit. -->
+    <fieldPermissions><field>Task.Subject</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Task.ActivityDate</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Task.WhoId</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Task.WhatId</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Task.Description</field><readable>true</readable><editable>true</editable></fieldPermissions>
+
+    <!-- Field permissions: Expense (UC3) — Amount/Title/TransactionDate required, omitted -->
+    <fieldPermissions><field>Expense.Description</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Expense.WorkOrderId</field><readable>true</readable><editable>true</editable></fieldPermissions>
+    <fieldPermissions><field>Expense.AccountId</field><readable>true</readable><editable>true</editable></fieldPermissions>
+</PermissionSet>

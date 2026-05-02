@@ -1,0 +1,14 @@
+{
+    "required": ["physicianName"],
+    "unevaluatedProperties": false,
+    "properties": {
+        "physicianName": {
+            "title": "physicianName",
+            "description": "Physician name in any common form (e.g. 'Dr. Mehta', 'Priya Mehta', 'Mehta'). The action SOQL-resolves the Contact and pulls Department internally.",
+            "lightning:type": "lightning__textType",
+            "lightning:isPII": false,
+            "copilotAction:isUserInput": false
+        }
+    },
+    "lightning:type": "lightning__objectType"
+}
